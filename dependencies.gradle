@@ -88,4 +88,7 @@ ext {
 
     loginDependencies =
             juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies + roomDependencies
+
+    coreAndroid = juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies + roomDependencies
+
 }

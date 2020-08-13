@@ -28,5 +28,6 @@ dependencies {
     coreAndroid.each { add(it.configuration, it.dependency, it.options) }
     implementation project(':core')
     implementation project(':data')
+    implementation project(':domain')
 
 }

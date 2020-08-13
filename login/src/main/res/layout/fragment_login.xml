@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.login.presentation.LoginViewModel" />
+            type="com.mathe.login.presentation.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

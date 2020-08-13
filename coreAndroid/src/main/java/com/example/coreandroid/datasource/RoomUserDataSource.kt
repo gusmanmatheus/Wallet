@@ -9,14 +9,16 @@ class RoomUserDataSource(private val userDao: UserDao) :
     UserDataSource {
 
     override suspend fun registerUser(user: User): Boolean {
-        return userDao.register(UserEntity(user.username, user.name, user.password))
+
+        return userDao.register(user.toUserEntity())
     }
 
     override suspend fun login(username: String, password: String): User? {
-        val userEntity = userDao.getUser(username, password)
-        userEntity?.let {
-            return User(userEntity.username, userEntity.name, userEntity.password)
-        }
-        return null
+        return userDao.getUser(username, password)?.toUser()
     }
+
+    private fun UserEntity.toUser() = User(username, name, password)
+
+    private fun User.toUserEntity() = UserEntity(username, name, password)
+
 }

@@ -6,28 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mathe.login.databinding.FragmentLoginBinding
+import org.koin.android.ext.android.inject
 
 
 class LoginFragment : Fragment() {
 
-
+val viewModel :LoginViewModel by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val bind = FragmentLoginBinding.inflate(inflater, container, false)
-        setupClicksListers(bind)
-        return bind.root
+        val binding = FragmentLoginBinding.inflate(inflater, container, false)
+        setupClicksListers(binding)
+        return binding.root
     }
 
-    private fun setupClicksListers(bind: FragmentLoginBinding) {
-        clickRegister(bind)
-        clickLogin(bind)
+    private fun setupClicksListers(binding: FragmentLoginBinding) {
+        clickRegister(binding)
+        clickLogin(binding)
     }
 
     private fun clickLogin(bind: FragmentLoginBinding) {

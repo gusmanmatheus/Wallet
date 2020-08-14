@@ -28,6 +28,9 @@ android {
 
 dependencies {
     loginDependencies.each { add(it.configuration, it.dependency, it.options) }
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':coreAndroid')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
 

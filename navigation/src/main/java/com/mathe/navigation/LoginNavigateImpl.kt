@@ -1,8 +1,6 @@
-package com.example.navigation
+package com.mathe.navigation
 
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.navigation.utils.navigate
 import com.mathe.login.navigation.LoginNavigate
 
 class LoginNavigateImpl(private val fragment: Fragment): LoginNavigate {

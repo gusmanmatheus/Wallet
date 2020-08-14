@@ -1,4 +1,4 @@
-package com.example.navigation.utils
+package com.mathe.navigation.utils
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavArgs

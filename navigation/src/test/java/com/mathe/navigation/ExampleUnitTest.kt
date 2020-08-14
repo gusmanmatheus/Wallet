@@ -1,4 +1,4 @@
-package com.example.navigation
+package com.mathe.navigation
 
 import org.junit.Test
 

@@ -2,6 +2,7 @@ package com.mathe.wallet
 
 import android.app.Application
 import com.mathe.login.modules.loginModules
+import com.mathe.navigation.navigateModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +13,8 @@ class App() : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-                    loginModules
+                    loginModules,
+                    navigateModules
                 )
             )
         }

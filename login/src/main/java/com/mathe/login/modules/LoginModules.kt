@@ -26,6 +26,5 @@ val loginModules = module {
                 .build()
         } bind RoomDatabase::class
     }
-
      viewModel { LoginViewModel() }
 }

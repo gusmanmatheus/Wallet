@@ -2,15 +2,16 @@ package com.mathe.navigation
 
 import androidx.fragment.app.Fragment
 import com.mathe.login.navigation.LoginNavigate
+import com.mathe.login.presentation.LoginFragmentDirections
+import com.mathe.navigation.utils.navigate
 
 class LoginNavigateImpl(private val fragment: Fragment): LoginNavigate {
     override fun actionLogin() {
-        TODO("Not yet implemented")
-      }
+       }
 
     override fun actionRegister() {
-        TODO("Not yet implemented")
-    }
+        fragment.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+     }
 
 }
 

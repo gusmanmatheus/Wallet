@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
-android {
+ android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
 
@@ -21,11 +22,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+     dataBinding {
+         enabled = true
+     }
 }
 
 dependencies {
 
     implementation project(':login')
+    implementation project(':navigation')
+    implementation "androidx.fragment:fragment:1.2.5"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     appDependencies.each { add(it.configuration, it.dependency, it.options) }

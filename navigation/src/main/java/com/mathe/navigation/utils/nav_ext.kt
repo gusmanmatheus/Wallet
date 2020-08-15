@@ -12,6 +12,6 @@ fun Fragment.navigate(directions: NavDirections) = try {
     e.printStackTrace()
 }
 
-inline fun <reified T : NavArgs> Fragment.navValue(): T {
-    return navArgs<T>().value
-}
+//inline fun <reified T : NavArgs> Fragment.navValue(): T {
+//    return navArgs<T>().value
+//}

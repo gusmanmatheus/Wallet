@@ -1,30 +1,46 @@
 package com.mathe.login.modules
 
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.mathe.coreandroid.datasource.RoomUserDataSource
-import com.mathe.data.LoginUser
+import com.mathe.coreandroid.db.WalletDataBase
+import com.mathe.data.usercaselogin.AuthenticateUser
+import com.mathe.data.usercaselogin.RegisterUser
 import com.mathe.data.datasource.UserDataSource
 import com.mathe.data.repository.UserRepository
+import com.mathe.data.usercaselogin.FindUserId
+import com.mathe.login.LoginInteractor
 import com.mathe.login.presentation.LoginViewModel
+import com.mathe.login.presentation.RegisterViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val loginModules = module {
-    factory { LoginUser(get()) }
+
+    single {
+        Room.databaseBuilder(get(), WalletDataBase::class.java, "database")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+    } bind WalletDataBase::class
+
+    factory { FindUserId(get()) }
+
+    factory { LoginInteractor(get(), get(), get()) }
+
+    factory { RegisterUser(get()) }
+
+    factory { AuthenticateUser(get()) }
 
     factory { UserRepository(get()) }
 
-    factory<UserDataSource>() { RoomUserDataSource(get()) }
+    factory<UserDataSource> { RoomUserDataSource(get()) }
 
     factory {
-        single {
-            Room.databaseBuilder(get(), RoomDatabase::class.java, "database")
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build()
-        } bind RoomDatabase::class
+        get<WalletDataBase>().userDao()
     }
-     viewModel { LoginViewModel() }
+
+
+    viewModel { LoginViewModel(get()) }
+    viewModel { RegisterViewModel(get()) }
 }

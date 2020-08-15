@@ -3,12 +3,16 @@ package com.mathe.data.repository
 import com.mathe.data.datasource.UserDataSource
 import com.mathe.domain.User
 
-class UserRepository(private val userDataSource: UserDataSource) {
-    suspend fun login(username: String, password: String):User? {
-        return userDataSource.login(username, password)
+class UserRepository(private val userDataSource: UserDataSource):UserDataSource {
+    override  suspend fun authenticateUser(username: String, password: String):User? {
+        return userDataSource.authenticateUser(username, password)
     }
 
-    suspend fun register(user: User):Boolean {
+    override suspend fun findUserByUsername(username: String): Long? {
+        return userDataSource.findUserByUsername(username)
+    }
+
+    override suspend fun registerUser(user: User):Long {
         return userDataSource.registerUser(user)
     }
 }

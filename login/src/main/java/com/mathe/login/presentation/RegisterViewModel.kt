@@ -16,32 +16,34 @@ class RegisterViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
 
     val name = MutableLiveData<String>()
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<Int>()
+    val error: LiveData<Int> = _error
 
     private val _goToCongratulationScreen = MutableLiveData<Boolean>()
-      val goToCongratulationScreen: LiveData<Boolean> = _goToCongratulationScreen
-    fun registerUser() {
-        viewModelScope.launch {
-            username.value?.let { username ->
-                val idUsername = loginInteractor.findUserId(username)
-                if (idUsername == null) {
-                    password.value?.let { password ->
-                        val idNewUser = loginInteractor.register(
-                            User(
-                                username,
-                                name.value ?: username,
-                                password
-                            )
-                        )
-                        if (idNewUser > 0) _goToCongratulationScreen.value =
-                            true else _error.value = "error"
-                    } ?: run { _error.value = "Password vazio" }
-                } else {
-                    _error.value = "Username ja cadastrado"
-                }
-            } ?: run { _error.value = "Username vazio" }
-        }
+    val goToCongratulationScreen: LiveData<Boolean> = _goToCongratulationScreen
+
+    init {
+        username.value = ""
+        password.value = ""
+        name.value = ""
     }
 
+    fun registerUser() {
+        viewModelScope.launch {
+            val idUsername = loginInteractor.findUserId(username.value ?: "")
+            if (idUsername == null) {
+                val idNewUser = loginInteractor.register(
+                    User(
+                        username.value ?: "",
+                        name.value ?: username.value ?: "",
+                        password.value ?: ""
+                    )
+                )
+                if (idNewUser > 0) _goToCongratulationScreen.value = true else _error.value = 1
+            } else {
+                _error.value = 2
+            }
+        }
+    }
 }
+

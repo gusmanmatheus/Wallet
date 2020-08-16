@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mathe.coreandroid.navigator
 import com.mathe.login.R
 import com.mathe.login.databinding.FragmentLoginBinding
+import com.mathe.login.databinding.FragmentRegisterBinding
 import com.mathe.login.navigation.LoginNavigate
 import org.koin.android.ext.android.inject
 
@@ -20,7 +22,6 @@ class LoginFragment : Fragment() {
 
     val viewModel: LoginViewModel by inject()
     private val loginNavigate: LoginNavigate by navigator()
-    lateinit var binding: FragmentLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,7 +31,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding =
+        val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_login,
@@ -39,29 +40,35 @@ class LoginFragment : Fragment() {
             )
         binding.lifecycleOwner = this
         binding.viewModel = this.viewModel
-        setupClicksListers()
-        setupObservers()
+        setupClicksListers(binding)
+        setupObservers(binding)
         return binding.root
     }
 
-    private fun setupClicksListers() {
-        clickRegister()
-        clickLogin()
+    private fun setupClicksListers(binding: FragmentLoginBinding) {
+        clickRegister(binding)
+        clickLogin(binding)
 
     }
 
-    private fun setupObservers() {
+    private fun setupObservers(binding: FragmentLoginBinding) {
         goToHomeScreenObserver()
         errorObserver()
+        usernameObserver(binding)
+        passwordObserver(binding)
     }
 
     private fun errorObserver() {
         viewModel.error.observe(this, Observer {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Erro ao logar, verifique usuario e senha",
+                Toast.LENGTH_SHORT
+            ).show()
         })
     }
 
-    private fun clickLogin() {
+    private fun clickLogin(binding: FragmentLoginBinding) {
         binding.lgBtLogin.setOnClickListener {
             viewModel.login()
         }
@@ -79,7 +86,7 @@ class LoginFragment : Fragment() {
         // vai pra proxima tela
     }
 
-    private fun clickRegister() {
+    private fun clickRegister(binding: FragmentLoginBinding) {
         binding.lgBtRegister.setOnClickListener {
             goToRegisterScreen()
         }
@@ -89,5 +96,21 @@ class LoginFragment : Fragment() {
         loginNavigate.actionRegister()
     }
 
+    private fun usernameObserver(binding: FragmentLoginBinding) {
+        viewModel.username.observe(this, Observer {
+            controlButton(binding)
+        })
+    }
+
+    private fun passwordObserver(binding: FragmentLoginBinding) {
+        viewModel.password.observe(this, Observer {
+            controlButton(binding)
+        })
+    }
+
+    private fun controlButton(binding: FragmentLoginBinding) {
+        binding.lgBtLogin.isEnabled =
+            !viewModel.username.value.isNullOrBlank() && !viewModel.password.value.isNullOrBlank()
+    }
 
 }

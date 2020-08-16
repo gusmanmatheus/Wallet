@@ -25,14 +25,14 @@ apply plugin: 'kotlin-kapt'
      dataBinding {
          enabled = true
      }
-}
+
+ }
 
 dependencies {
 
     implementation project(':login')
     implementation project(':navigation')
     implementation "androidx.fragment:fragment:1.2.5"
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     appDependencies.each { add(it.configuration, it.dependency, it.options) }
 }

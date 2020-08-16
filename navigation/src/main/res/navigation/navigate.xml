@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigate"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -15,5 +17,15 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.mathe.login.presentation.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_congratulationsFragment"
+            app:destination="@id/congratulationsFragment"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/congratulationsFragment"
+        android:name="com.mathe.login.presentation.CongratulationsFragment"
+        android:label="CongratulationsFragment" />
 </navigation>

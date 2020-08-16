@@ -1,10 +1,10 @@
-package com.mathe.data
+package com.mathe.data.usercaselogin
 
 import com.mathe.data.repository.UserRepository
 import com.mathe.domain.User
 
 class RegisterUser(private val userRepository: UserRepository) {
-    suspend fun invoke(user: User):Boolean {
-       return userRepository.register(user)
+    suspend operator fun invoke(user: User):Long {
+       return userRepository.registerUser(user)
     }
 }

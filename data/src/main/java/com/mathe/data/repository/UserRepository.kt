@@ -1,9 +1,9 @@
 package com.mathe.data.repository
 
-import com.mathe.data.datasource.UserDataSource
-import com.mathe.domain.User
+ import com.mathe.domain.User
+ import com.mathe.domain.datasource.UserDataSource
 
-class UserRepository(private val userDataSource: UserDataSource):UserDataSource {
+class UserRepository(private val userDataSource: UserDataSource): UserDataSource {
     override  suspend fun authenticateUser(username: String, password: String):User? {
         return userDataSource.authenticateUser(username, password)
     }

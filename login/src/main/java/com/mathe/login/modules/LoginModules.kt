@@ -5,7 +5,7 @@ import com.mathe.coreandroid.datasource.RoomUserDataSource
 import com.mathe.coreandroid.db.WalletDataBase
 import com.mathe.data.usercaselogin.AuthenticateUser
 import com.mathe.data.usercaselogin.RegisterUser
-import com.mathe.data.datasource.UserDataSource
+import com.mathe.domain.datasource.UserDataSource
 import com.mathe.data.repository.UserRepository
 import com.mathe.data.usercaselogin.FindUserId
 import com.mathe.login.LoginInteractor

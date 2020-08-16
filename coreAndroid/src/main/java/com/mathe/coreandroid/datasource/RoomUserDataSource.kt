@@ -2,7 +2,7 @@ package com.mathe.coreandroid.datasource
 
 import com.mathe.coreandroid.db.UserDao
 import com.mathe.coreandroid.db.model.UserEntity
-import com.mathe.data.datasource.UserDataSource
+import com.mathe.domain.datasource.UserDataSource
 import com.mathe.domain.User
 
 class RoomUserDataSource(private val userDao: UserDao) :

@@ -14,8 +14,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField ("String", "CENTRAL_BANK_URL", "\"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/\"")
-        buildConfigField ("String", "MARKET_BITCOIN_URL", "\"https://www.mercadobitcoin.net/api/BTC/\"")
     }
 
     buildTypes {
@@ -28,9 +26,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    coreAndroid.each { add(it.configuration, it.dependency, it.options) }
-    implementation project(':core')
-    implementation project(':data')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(':domain')
+    implementation project(':data')
+    implementation project(':coreAndroid')
+
+    homeDependencies.each { add(it.configuration, it.dependency, it.options) }
+
 
 }

@@ -29,7 +29,8 @@ apply plugin: 'kotlin-kapt'
  }
 
 dependencies {
-
+    implementation project(':home')
+    implementation project(':coreAndroid')
     implementation project(':login')
     implementation project(':navigation')
     implementation "androidx.fragment:fragment:1.2.5"

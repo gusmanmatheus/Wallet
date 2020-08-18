@@ -1,4 +1,4 @@
-package com.mathe.data.repository
+package com.mathe.data.repository.local
 
  import com.mathe.domain.User
  import com.mathe.domain.datasource.UserDataSource

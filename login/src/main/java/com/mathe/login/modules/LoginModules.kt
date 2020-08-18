@@ -40,6 +40,6 @@ val loginModules = module {
     }
 
 
-    viewModel { LoginViewModel(get()) }
-    viewModel { RegisterViewModel(get()) }
+    viewModel { LoginViewModel(loginInteractor = get()) }
+    viewModel { RegisterViewModel(loginInteractor = get()) }
 }

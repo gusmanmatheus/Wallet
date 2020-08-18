@@ -1,6 +1,9 @@
 package com.mathe.domain.datasource
 
+import com.mathe.domain.Resources
+
+
 interface QuotationsDataSource {
-    suspend fun getDollar(): Double
-    suspend fun getBitcoin(): Double
+    suspend fun getDollar(): Resources<Double>?
+    suspend fun getBitcoin(): Resources<Double>?
 }

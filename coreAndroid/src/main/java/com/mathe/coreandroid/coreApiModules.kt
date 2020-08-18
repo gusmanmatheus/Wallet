@@ -1,12 +1,7 @@
 package com.mathe.coreandroid
 
-import com.mathe.coreandroid.datasource.RemoteQuotationDataSource
 import com.mathe.coreandroid.remote.api.BitcoinMarketApi
 import com.mathe.coreandroid.remote.api.CentralBankApi
-import com.mathe.data.repository.local.QuotationRepository
-import com.mathe.data.usercaselogin.GetQuotationBitcoin
-import com.mathe.data.usercaselogin.GetQuotationDollar
-import com.mathe.domain.datasource.QuotationsDataSource
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module

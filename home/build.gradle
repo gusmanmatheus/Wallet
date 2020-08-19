@@ -15,7 +15,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -30,6 +32,7 @@ dependencies {
     implementation project(':domain')
     implementation project(':data')
     implementation project(':coreAndroid')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     homeDependencies.each { add(it.configuration, it.dependency, it.options) }
 

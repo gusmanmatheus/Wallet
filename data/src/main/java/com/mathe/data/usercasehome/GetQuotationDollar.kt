@@ -1,6 +1,6 @@
 package com.mathe.data.usercasehome
 
-import com.mathe.data.repository.local.QuotationRepository
+import com.mathe.data.repository.remote.QuotationRepository
 import com.mathe.domain.Resources
 
 

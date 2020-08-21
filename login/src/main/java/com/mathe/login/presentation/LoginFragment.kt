@@ -40,9 +40,13 @@ class LoginFragment : Fragment() {
             )
         binding.lifecycleOwner = this
         binding.viewModel = this.viewModel
+        verifyHasSession()
         setupClicksListers(binding)
         setupObservers(binding)
         return binding.root
+    }
+    private fun verifyHasSession(){
+        viewModel.verifyHasSession()
     }
 
     private fun setupClicksListers(binding: FragmentLoginBinding) {
@@ -84,6 +88,7 @@ class LoginFragment : Fragment() {
 
     private fun goToHomeScreen() {
         // vai pra proxima tela
+        Toast.makeText(requireContext(),"LOGADO",Toast.LENGTH_SHORT).show()
     }
 
     private fun clickRegister(binding: FragmentLoginBinding) {

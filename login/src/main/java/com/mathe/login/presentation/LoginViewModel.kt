@@ -8,6 +8,7 @@ import com.mathe.login.LoginInteractor
 import kotlinx.coroutines.launch
 
 class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
+
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
@@ -18,14 +19,32 @@ class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
     val goToHomeScreen: LiveData<Boolean> = _goToHomeScreen
 
     fun login() {
-             viewModelScope.launch {
-                val user = loginInteractor.authenticate(
-                    username.value ?: "",
-                    password.value ?: ""
-                )
-                if (user == null) _error.value = true else _goToHomeScreen.value = true
+        viewModelScope.launch {
+            val user = loginInteractor.authenticate(
+                username.value ?: "",
+                password.value ?: ""
+            )
+            if (user == null) _error.value = true
+            else setSession(user.id)
+        }
+    }
+
+    fun verifyHasSession() {
+        viewModelScope.launch {
+            val sessionUser = loginInteractor.getActiveUser()
+             sessionUser?.let {
+                _goToHomeScreen.value = true
             }
         }
     }
+
+    private fun setSession(id: Long) {
+        viewModelScope.launch {
+            if (loginInteractor.login(id) >= 1){
+                _goToHomeScreen.value =  true
+            }
+        }
+    }
+}
 
 

@@ -1,4 +1,4 @@
-package com.mathe.coreandroid.datasource
+package com.mathe.coreandroid.datasource.remote
 
 import android.util.Log
 import com.mathe.core.interactors.americaPattern

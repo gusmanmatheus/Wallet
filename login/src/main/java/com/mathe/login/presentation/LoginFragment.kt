@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun errorObserver() {
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(viewLifecycleOwner, Observer {
             Toast.makeText(
                 requireContext(),
                 "Erro ao logar, verifique usuario e senha",

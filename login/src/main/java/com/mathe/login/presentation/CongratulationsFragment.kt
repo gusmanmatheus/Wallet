@@ -38,7 +38,7 @@ class CongratulationsFragment : Fragment() {
     }
 
     private fun goHomeScreenObserver() {
-        viewModel.goToHome.observe(this, Observer {
+        viewModel.goToHome.observe(viewLifecycleOwner, Observer {
             goToHomeScreen()
         })
     }
@@ -48,7 +48,7 @@ class CongratulationsFragment : Fragment() {
     }
 
     private fun userObserve() {
-        viewModel.user.observe(this, Observer {
+        viewModel.user.observe(viewLifecycleOwner, Observer {
             val message = "${it.name}, ${requireContext().getString(R.string.congratulates_info)}"
             viewModel.setCongratsTextInfo(message)
         })

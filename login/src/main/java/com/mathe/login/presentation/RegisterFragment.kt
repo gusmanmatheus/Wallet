@@ -55,13 +55,13 @@ class RegisterFragment : Fragment() {
     }
 
     private fun usernameObserver(binding: FragmentRegisterBinding) {
-        viewModel.username.observe(this, Observer {
+        viewModel.username.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }
 
     private fun passwordObserver(binding: FragmentRegisterBinding) {
-        viewModel.password.observe(this, Observer {
+        viewModel.password.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }
@@ -72,13 +72,13 @@ class RegisterFragment : Fragment() {
     }
 
     private fun errorObserver() {
-        viewModel.error.observe(this, Observer {
+        viewModel.error.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
     }
 
     private fun goToCongratulationsObserver() {
-        viewModel.goToCongratulationScreen.observe(this, Observer {
+        viewModel.goToCongratulationScreen.observe(viewLifecycleOwner, Observer {
             if (it) {
                 goToCongratulationsScreen()
                 viewModel.resetRoute()

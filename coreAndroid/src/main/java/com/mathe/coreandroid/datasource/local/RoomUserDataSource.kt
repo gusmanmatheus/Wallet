@@ -32,9 +32,7 @@ class RoomUserDataSource(private val userDao: UserDao) :
         return userDao.getActiveUser()?.toUser()
     }
 
-
-    private fun UserEntity.toUser() = User(id, username, name, password, active
-    )
+    private fun UserEntity.toUser() = User(id, username, name, password, active)
 
     private fun User.toUserEntity() =
         UserEntity(username = username, name = name, password = password, active = active)

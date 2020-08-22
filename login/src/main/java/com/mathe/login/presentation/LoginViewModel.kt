@@ -21,8 +21,8 @@ class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
     fun login() {
         viewModelScope.launch {
             val user = loginInteractor.authenticate(
-                username.value ?: "",
-                password.value ?: ""
+                username.value.orEmpty(),
+                password.value.orEmpty()
             )
             if (user == null) _error.value = true
             else setSession(user.id)
@@ -32,7 +32,7 @@ class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
     fun verifyHasSession() {
         viewModelScope.launch {
             val sessionUser = loginInteractor.getActiveUser()
-             sessionUser?.let {
+            sessionUser?.let {
                 _goToHomeScreen.value = true
             }
         }
@@ -40,8 +40,8 @@ class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
 
     private fun setSession(id: Long) {
         viewModelScope.launch {
-            if (loginInteractor.login(id) >= 1){
-                _goToHomeScreen.value =  true
+            if (loginInteractor.login(id) >= 1) {
+                _goToHomeScreen.value = true
             }
         }
     }

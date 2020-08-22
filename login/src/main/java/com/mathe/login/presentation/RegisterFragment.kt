@@ -73,8 +73,7 @@ class RegisterFragment : Fragment() {
 
     private fun errorObserver() {
         viewModel.error.observe(this, Observer {
-            val message = if (it == 1) "erro Inesperado" else "usuario ja cadastrado"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -83,7 +82,8 @@ class RegisterFragment : Fragment() {
             if (it) {
                 goToCongratulationsScreen()
                 viewModel.resetRoute()
-            }   })
+            }
+        })
     }
 
     private fun goToCongratulationsScreen() {

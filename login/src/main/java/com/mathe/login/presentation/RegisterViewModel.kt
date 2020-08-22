@@ -16,8 +16,8 @@ class RegisterViewModel(val registerInteractor: RegisterInteractor) : ViewModel(
 
     val name = MutableLiveData<String>()
 
-    private val _error = MutableLiveData<Int>()
-    val error: LiveData<Int> = _error
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
 
     private val _goToCongratulationScreen = MutableLiveData<Boolean>()
     val goToCongratulationScreen: LiveData<Boolean> = _goToCongratulationScreen
@@ -30,21 +30,23 @@ class RegisterViewModel(val registerInteractor: RegisterInteractor) : ViewModel(
 
     fun registerUser() {
         viewModelScope.launch {
-            val idUsername = registerInteractor.findUserId(username.value ?: "")
+            val idUsername = registerInteractor.findUserId(username.value.orEmpty())
             if (idUsername == null) {
                 val idNewUser = registerInteractor.register(
                     User(
-                        username = username.value ?: "",
-                        name = name.value ?: username.value ?: "",
-                        password = password.value ?: ""
+                        username = username.value.orEmpty(),
+                        name = name.value ?: username.value.orEmpty(),
+                        password = password.value.orEmpty()
                     )
                 )
-                if (idNewUser > 0) setSession(idNewUser) else _error.value = 1
+                if (idNewUser > 0) setSession(idNewUser) else _error.value =
+                    CodeErrorRegister.GENERICS.codeError
             } else {
-                _error.value = 2
+                _error.value = CodeErrorRegister.EXISTINGUSER.codeError
             }
         }
     }
+
     private fun setSession(id: Long) {
         viewModelScope.launch {
             if (registerInteractor.login(id) >= 1) {
@@ -52,8 +54,14 @@ class RegisterViewModel(val registerInteractor: RegisterInteractor) : ViewModel(
             }
         }
     }
-      fun resetRoute(){
+
+    fun resetRoute() {
         _goToCongratulationScreen.value = false
+    }
+
+    enum class CodeErrorRegister(val codeError: String) {
+        EXISTINGUSER("Usuario ja cadastrado"),
+        GENERICS("Ocorreu algum erro")
     }
 }
 

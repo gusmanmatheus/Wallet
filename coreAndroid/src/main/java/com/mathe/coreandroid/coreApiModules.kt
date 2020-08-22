@@ -47,7 +47,6 @@ val coreApiModules = module {
     //room
     single {
         Room.databaseBuilder(get(), WalletDataBase::class.java, "database")
-            .fallbackToDestructiveMigration()
             .build()
     } bind WalletDataBase::class
 

@@ -9,10 +9,14 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.mathe.login.presentation.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_HomeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -20,7 +24,7 @@
         android:label="RegisterFragment">
         <action
             android:id="@+id/action_registerFragment_to_congratulationsFragment"
-            app:destination="@id/congratulationsFragment"/>
+            app:destination="@id/congratulationsFragment" />
     </fragment>
 
 
@@ -28,4 +32,8 @@
         android:id="@+id/congratulationsFragment"
         android:name="com.mathe.login.presentation.CongratulationsFragment"
         android:label="CongratulationsFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.home.presentation.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>

@@ -1,19 +1,16 @@
 package com.mathe.login.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mathe.coreandroid.navigator
 import com.mathe.login.R
 import com.mathe.login.databinding.FragmentLoginBinding
-import com.mathe.login.databinding.FragmentRegisterBinding
 import com.mathe.login.navigation.LoginNavigate
 import org.koin.android.ext.android.inject
 
@@ -30,7 +27,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(
                 inflater,
@@ -38,14 +34,15 @@ class LoginFragment : Fragment() {
                 container,
                 false
             )
-        binding.lifecycleOwner = this
-        binding.viewModel = this.viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         verifyHasSession()
         setupClicksListers(binding)
         setupObservers(binding)
         return binding.root
     }
-    private fun verifyHasSession(){
+
+    private fun verifyHasSession() {
         viewModel.verifyHasSession()
     }
 
@@ -79,7 +76,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToHomeScreenObserver() {
-        viewModel.goToHomeScreen.observe(this, Observer {
+        viewModel.goToHomeScreen.observe(viewLifecycleOwner, Observer {
             if (it) {
                 goToHomeScreen()
             }
@@ -87,8 +84,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToHomeScreen() {
-        // vai pra proxima tela
-        Toast.makeText(requireContext(),"LOGADO",Toast.LENGTH_SHORT).show()
+        // vai pra proxima
+        loginNavigate.actionLogin()
+        Toast.makeText(requireContext(), "LOGADO", Toast.LENGTH_SHORT).show()
     }
 
     private fun clickRegister(binding: FragmentLoginBinding) {
@@ -102,13 +100,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun usernameObserver(binding: FragmentLoginBinding) {
-        viewModel.username.observe(this, Observer {
+        viewModel.username.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }
 
     private fun passwordObserver(binding: FragmentLoginBinding) {
-        viewModel.password.observe(this, Observer {
+        viewModel.password.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }

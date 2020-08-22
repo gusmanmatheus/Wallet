@@ -1,4 +1,4 @@
-package com.mathe.coreandroid.datasource
+package com.mathe.coreandroid.datasource.local
 
 import com.mathe.coreandroid.db.UserDao
 import com.mathe.coreandroid.db.model.UserEntity
@@ -16,12 +16,25 @@ class RoomUserDataSource(private val userDao: UserDao) :
         return userDao.authenticateUser(username, password)?.toUser()
     }
 
-    override suspend fun findUserByUsername(username: String):Long?{
+    override suspend fun findUserByUsername(username: String): Long? {
         return userDao.findUserByUsername(username)
     }
 
-    private fun UserEntity.toUser() = User(username, name, password)
+    override suspend fun logout() {
+        userDao.logout()
+    }
 
-    private fun User.toUserEntity() = UserEntity(username=  username,name =  name, password = password)
+    override suspend fun login(id: Long): Int {
+        return userDao.login(id)
+    }
+
+    override suspend fun getActiveUser(): User? {
+        return userDao.getActiveUser()?.toUser()
+    }
+
+    private fun UserEntity.toUser() = User(id, username, name, password, active)
+
+    private fun User.toUserEntity() =
+        UserEntity(username = username, name = name, password = password, active = active)
 
 }

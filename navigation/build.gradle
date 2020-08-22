@@ -34,5 +34,6 @@ dependencies {
     implementation project(':data')
     implementation project(':core')
     implementation project(':coreAndroid')
+    implementation project(':home')
     navigateDependencies.each { add(it.configuration, it.dependency, it.options) }
 }

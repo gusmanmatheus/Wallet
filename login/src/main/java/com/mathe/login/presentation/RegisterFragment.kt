@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getColor
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -57,13 +55,13 @@ class RegisterFragment : Fragment() {
     }
 
     private fun usernameObserver(binding: FragmentRegisterBinding) {
-        viewModel.username.observe(this, Observer {
+        viewModel.username.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }
 
     private fun passwordObserver(binding: FragmentRegisterBinding) {
-        viewModel.password.observe(this, Observer {
+        viewModel.password.observe(viewLifecycleOwner, Observer {
             controlButton(binding)
         })
     }
@@ -74,16 +72,16 @@ class RegisterFragment : Fragment() {
     }
 
     private fun errorObserver() {
-        viewModel.error.observe(this, Observer {
-            val message = if (it == 1) "erro Inesperado" else "usuario ja cadastrado"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        viewModel.error.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
     }
 
     private fun goToCongratulationsObserver() {
-        viewModel.goToCongratulationScreen.observe(this, Observer {
+        viewModel.goToCongratulationScreen.observe(viewLifecycleOwner, Observer {
             if (it) {
                 goToCongratulationsScreen()
+                viewModel.resetRoute()
             }
         })
     }

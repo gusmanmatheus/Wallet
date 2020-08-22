@@ -1,4 +1,4 @@
-package com.mathe.data.repository.local
+package com.mathe.data.repository.remote
 
 import com.mathe.domain.Resources
 import com.mathe.domain.datasource.QuotationsDataSource

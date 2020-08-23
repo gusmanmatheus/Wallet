@@ -132,7 +132,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
     }
 
-    fun insufficientFundsObserver() {
+    private fun insufficientFundsObserver() {
         viewModel.insufficientFunds.observe(this, Observer {
             if (it) {
                 popUpErro("Sem saldo pra essa troca")

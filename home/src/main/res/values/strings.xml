@@ -14,4 +14,7 @@
     <string name="zero_value">00,00</string>
     <string name="trade_text">Trocar</string>
     <string name="britta_to_bitcoin">Britta para Bitcoin</string>
+    <string name="error_request_cambio"> "nao foi possivel pegar o cambio do bitcoin ou da moeda britta, foram " +
+                        "desabilitadas as funcoes de cambio tente novamente"</string>
+    <string name="no_money_balance">Sem saldo pra essa troca</string>
 </resources>

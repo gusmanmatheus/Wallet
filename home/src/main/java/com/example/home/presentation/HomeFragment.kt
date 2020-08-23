@@ -113,8 +113,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.hmBtTrade.isEnabled = false
             binding.hmEdExchange.isEnabled = false
             popUpErro(
-                "nao foi possivel pegar o cambio do bitcoin ou da moeda britta, foram " +
-                        "desabilitadas as funcoes de cambio tente novamente"
+               getString(R.string.error_request_cambio)
             )
 
         })
@@ -126,8 +125,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.hmBtTrade.isEnabled = false
             binding.hmEdExchange.isEnabled = false
             popUpErro(
-                "nao foi possivel pegar o cambio do bitcoin ou da moeda britta, foram " +
-                        "desabilitadas as funcoes de cambio tente novamente"
+                getString(R.string.error_request_cambio)
             )
         })
     }
@@ -135,7 +133,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun insufficientFundsObserver() {
         viewModel.insufficientFunds.observe(this, Observer {
             if (it) {
-                popUpErro("Sem saldo pra essa troca")
+                popUpErro(getString(R.string.no_money_balance))
             }
         })
     }

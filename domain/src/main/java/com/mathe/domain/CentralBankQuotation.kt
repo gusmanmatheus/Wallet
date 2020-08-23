@@ -2,8 +2,8 @@ package com.mathe.domain
 
 data class CentralBankQuotation(val value:List<Value>){
     fun quotation():Double?{
-        return value.firstOrNull()?.quotation
+        return  value.firstOrNull()?.cotacaoCompra
     }
 }
 
-class Value(val quotation: Double)
+class Value(val cotacaoCompra: Double)

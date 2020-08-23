@@ -19,8 +19,8 @@ class RoomWalletDataSource(private val walletDao: WalletDao) : WalletDataSource 
         return walletDao.insertWallet(wallet.toWalletEntity())
     }
 
-    private suspend fun Wallet.toWalletEntity() =
-        WalletEntity(userId = userId, britta = britta, real = real, bitcoin = bitcoin)
+    private fun Wallet.toWalletEntity() =
+        WalletEntity(id = id, userId = userId, britta = britta, real = real, bitcoin = bitcoin)
 
-    private suspend fun WalletEntity.toWallet() = Wallet(userId, britta, real, bitcoin)
+    private fun WalletEntity.toWallet() = Wallet(id, userId, britta, real, bitcoin)
 }

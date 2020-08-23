@@ -21,7 +21,8 @@ class CongratulationsViewModel(private val congratulationsInteractor: Congratula
     private val _goToHome = MutableLiveData<Boolean>()
     val goToHome: LiveData<Boolean> = _goToHome
 
-    val enableClick = MutableLiveData<Boolean>()
+    private val _enableClick = MutableLiveData<Boolean>()
+    val enableClick: LiveData<Boolean> = _enableClick
 
     fun loggedUser() {
         viewModelScope.launch {
@@ -35,7 +36,7 @@ class CongratulationsViewModel(private val congratulationsInteractor: Congratula
         viewModelScope.launch {
             val congrats = congratulationsInteractor.createNewWallet(Wallet.create(id))
             Log.i("xrl8", congrats.toString())
-            enableClick.value = true
+            _enableClick.value = true
         }
     }
 

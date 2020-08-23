@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.mathe.coreandroid.navigator
 import com.mathe.login.R
 import com.mathe.login.databinding.FragmentCongratulationsBinding
+import com.mathe.login.navigation.CongratulationsNavigate
 import org.koin.android.ext.android.inject
 
 class CongratulationsFragment : Fragment() {
     val viewModel: CongratulationsViewModel by inject()
+    private val congratulationsNavigate: CongratulationsNavigate by navigator()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,6 +31,7 @@ class CongratulationsFragment : Fragment() {
         biding.viewModel = viewModel
         setupObservers()
         viewModel.loggedUser()
+        clickListener(biding)
         return biding.root
 
     }
@@ -43,8 +47,14 @@ class CongratulationsFragment : Fragment() {
         })
     }
 
+    private fun clickListener(binding: FragmentCongratulationsBinding) {
+        binding.cgBtContinue.setOnClickListener {
+            goToHomeScreen()
+        }
+    }
+
     private fun goToHomeScreen() {
-        // navigate
+        congratulationsNavigate.actionGoToHome()
     }
 
     private fun userObserve() {

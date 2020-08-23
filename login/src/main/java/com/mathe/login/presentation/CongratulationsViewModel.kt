@@ -24,6 +24,9 @@ class CongratulationsViewModel(private val congratulationsInteractor: Congratula
     private val _enableClick = MutableLiveData<Boolean>()
     val enableClick: LiveData<Boolean> = _enableClick
 
+    init {
+        _enableClick.value = false
+    }
     fun loggedUser() {
         viewModelScope.launch {
             _user.value = congratulationsInteractor.getActiveUser()

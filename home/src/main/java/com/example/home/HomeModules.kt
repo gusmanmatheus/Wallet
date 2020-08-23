@@ -5,6 +5,14 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val homeModules = module {
-    factory { HomeInteractor(get(), get(), get(), get(), get()) }
-    viewModel { HomeViewModel(get()) }
+    factory {
+        HomeInteractor(
+            getWallet = get(),
+            updateWallet = get(),
+            getQuotationDollar = get(),
+            getQuotationBitcoin = get(),
+            userActive = get()
+        )
+    }
+    viewModel { HomeViewModel(homeInteractor = get()) }
 }

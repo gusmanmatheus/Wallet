@@ -159,7 +159,7 @@ class HomeViewModel(
         _bitcoin.value?.let {
             _convertedExchange.value = exchangeSpent.value?.makeConvert(1.0, it)
             sellCoin.value = Coins.REAL
-            buyCoin.value = Coins.BRITTA
+            buyCoin.value = Coins.BITCOIN
         }
     }
 

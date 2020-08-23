@@ -86,7 +86,6 @@ class LoginFragment : Fragment() {
     private fun goToHomeScreen() {
         // vai pra proxima
         loginNavigate.actionLogin()
-        Toast.makeText(requireContext(), "LOGADO", Toast.LENGTH_SHORT).show()
     }
 
     private fun clickRegister(binding: FragmentLoginBinding) {

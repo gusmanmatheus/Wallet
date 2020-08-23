@@ -12,10 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.home.R
 import com.example.home.databinding.FragmentHomeBinding
+import com.mathe.core.interactors.cleanMoneyText
+import com.mathe.coreandroid.maskValue
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
+    var control = true
     val viewModel: HomeViewModel by viewModel()
     lateinit var binding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,14 +89,26 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun exchangeObservable() {
+
         viewModel.exchangeSpent.observe(this, Observer {
-            viewModel.convertQuotation()
+            if (control) {
+              viewModel.exchangeSpent.value =  binding.hmEdExchange.maskValue()
+                control = false
+                viewModel.convertQuotation()
+                binding.hmEdExchange.setSelection(binding.hmEdExchange.text.length )
+
+            } else {
+                control = true
+            }
         })
     }
-
     private fun clickTrade() {
         binding.hmBtTrade.setOnClickListener {
-            viewModel.updateWallet()
+            val verifyVoid = (viewModel.exchangeSpent.value?.cleanMoneyText() ?: 0.0)
+            if (verifyVoid > 0.0)
+                viewModel.updateWallet()
+            else
+                popUpErro("Digite um valor")
         }
     }
 
@@ -113,7 +128,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.hmBtTrade.isEnabled = false
             binding.hmEdExchange.isEnabled = false
             popUpErro(
-               getString(R.string.error_request_cambio)
+                getString(R.string.error_request_cambio)
             )
 
         })
@@ -148,7 +163,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         alertDialog.show()
     }
-}
 
+}
 
 

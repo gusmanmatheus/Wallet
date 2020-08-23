@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/congratulationsFragment"
         android:name="com.mathe.login.presentation.CongratulationsFragment"
-        android:label="CongratulationsFragment" />
+        android:label="CongratulationsFragment">
+        <action
+            android:id="@+id/action_congratulationsFragment_to_HomeFragment"
+            app:destination="@id/homeFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.home.presentation.HomeFragment"

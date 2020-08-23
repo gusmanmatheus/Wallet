@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="little_margin">8dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
     <dimen name="margin_patter">24dp</dimen>
 </resources>

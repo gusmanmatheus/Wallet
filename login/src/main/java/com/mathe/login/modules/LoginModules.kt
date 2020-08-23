@@ -19,7 +19,6 @@ val loginModules = module {
             findUserId = get(),
             getActiveUser = get(),
             login = get()
-
         )
     }
     factory {

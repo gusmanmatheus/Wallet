@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.home.presentation.HomeViewModel" />
@@ -12,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_color_pattern"
         tools:context=".presentation.HomeFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -22,20 +24,19 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/hm_tv_tb_title"
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Wallet"
-                android:textSize="36dp" />
-        </androidx.appcompat.widget.Toolbar>
+                android:foregroundGravity="center"
+                android:src="@drawable/stone_logo" />
+
+                </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/hm_header_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/medium_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hm_toolbar">
@@ -44,6 +45,7 @@
                 android:id="@+id/hm_tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="name" />
@@ -52,53 +54,53 @@
                 android:id="@+id/hm_tv_info_balance_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Saldo Disponível:"
+                android:layout_marginTop="@dimen/little_margin"
+                android:text="@string/balance_available"
+                android:textColor="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hm_tv_name" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/hm_tv_real_balance_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R$ 00.00"
-                android:textSize="32dp"
+                android:text="@{viewModel.realText}"
+                android:textColor="@color/white"
+                android:textSize="32sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hm_tv_info_balance_available" />
+                app:layout_constraintTop_toBottomOf="@id/hm_tv_info_balance_available"
+                tools:text="00,00" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ocultar"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hm_tv_info_balance_available" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/hm_cl_bitcoin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-             app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="@dimen/margin_patter"
+            android:background="@drawable/box_currency_balance_bitcoin"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hm_header_home">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Bitcoin"
-                android:textColor="#FFFFFF"
+                android:layout_margin="@dimen/medium_margin"
+                android:text="@string/bitcoin"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/hm_tv_bitcoin_balance_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textColor="#FFFFFF"
+                android:layout_margin="@dimen/medium_margin"
+                android:text="@{viewModel.bitcoinText}"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -110,26 +112,29 @@
             android:id="@+id/hm_cl_britta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-             app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="@dimen/margin_patter"
+            android:background="@drawable/box_currency_balance_britta"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hm_cl_bitcoin">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Britta"
-                android:textColor="#FFFFFF"
+                android:layout_margin="@dimen/medium_margin"
+                android:text="@string/britta"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/hm_tv_britta_balance_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textColor="#FFFFFF"
+                android:layout_margin="@dimen/medium_margin"
+                android:text="@{viewModel.brittaText}"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -141,7 +146,7 @@
             android:id="@+id/hm_ll_exchange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/medium_margin"
             android:orientation="horizontal"
             android:weightSum="3"
             app:layout_constraintRight_toLeftOf="parent"
@@ -152,39 +157,52 @@
                 android:id="@+id/hm_ed_exchange"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:hint="@string/zero_value"
+                android:inputType="number"
+                android:maxLength="8"
+                android:maxLines="1"
+                android:text="@={viewModel.exchangeSpent}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.6"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                 android:hint="00,00" />
+                app:layout_constraintWidth_percent="0.6" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="00,0"
-                app:layout_constraintWidth_percent="0.35"
+                android:hint="@string/zero_value"
+                android:text="@{viewModel.convertedExchange}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                 />
+                app:layout_constraintWidth_percent="0.35" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Spinner
+            android:id="@+id/hm_spn_quotations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/medium_margin"
+            android:background="@color/white"
             android:gravity="center"
-            android:hint="Britta para Bitcoin"
+            android:hint="@string/britta_to_bitcoin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hm_ll_exchange" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/hm_bt_trade"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:text="Trocar"
+            android:layout_margin="@dimen/margin_patter"
+            android:text="@string/trade_text"
+            android:background="@drawable/button_shape"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

@@ -14,10 +14,10 @@ class RemoteQuotationDataSource(
     private val bitcoinMarketApi: BitcoinMarketApi,
     private val centralBankApi: CentralBankApi
 ) : QuotationsDataSource {
-    override suspend fun getDollar(): Resources<Double>? {
+    override suspend fun getDollar(): Resources<Double?> {
         return try {
             val centralBankApi =
-                centralBankApi.getDollarValue(Date().getDatePast(1).americaPattern())
+                centralBankApi.getDollarValue("'${Date().getDatePast(2).americaPattern()}'")
             val value = centralBankApi.await()
             Resources.successResponse(value.quotation())
         } catch (e: Exception) {
@@ -26,7 +26,7 @@ class RemoteQuotationDataSource(
         }
     }
 
-    override suspend fun getBitcoin(): Resources<Double>? {
+    override suspend fun getBitcoin(): Resources<Double?> {
         return try {
             val bitcoin = bitcoinMarketApi.getBitcoin()
             val price = bitcoin.await()
@@ -37,5 +37,3 @@ class RemoteQuotationDataSource(
         }
     }
 }
-
-

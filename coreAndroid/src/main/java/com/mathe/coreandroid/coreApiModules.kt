@@ -3,13 +3,19 @@ package com.mathe.coreandroid
 import androidx.room.Room
 import com.mathe.coreandroid.datasource.local.RoomUserDataSource
 import com.mathe.coreandroid.datasource.local.RoomWalletDataSource
+import com.mathe.coreandroid.datasource.remote.RemoteQuotationDataSource
 import com.mathe.coreandroid.db.WalletDataBase
 import com.mathe.coreandroid.remote.api.BitcoinMarketApi
 import com.mathe.coreandroid.remote.api.CentralBankApi
 import com.mathe.data.repository.local.UserRepository
 import com.mathe.data.repository.local.WalletRepository
+import com.mathe.data.repository.remote.QuotationRepository
+import com.mathe.data.usercasehome.GetQuotationBitcoin
+import com.mathe.data.usercasehome.GetQuotationDollar
 import com.mathe.data.usercasehome.GetWallet
+import com.mathe.data.usercasehome.UpdateWallet
 import com.mathe.data.usercaselogin.*
+import com.mathe.domain.datasource.QuotationsDataSource
 import com.mathe.domain.datasource.UserDataSource
 import com.mathe.domain.datasource.WalletDataSource
 import org.koin.core.qualifier.named
@@ -23,6 +29,8 @@ const val MARKET_BITCOIN = "MARKET_BITCOIN"
 const val CENTRAL_BANK = "CENTRAL_BANK"
 
 val coreApiModules = module {
+    factory { get<Retrofit>(MARKET_BITCOIN.toQualifier()).create(BitcoinMarketApi::class.java) }
+    factory { get<Retrofit>(CENTRAL_BANK.toQualifier()).create(CentralBankApi::class.java) }
     single(MARKET_BITCOIN.toQualifier()) {
         Retrofit.Builder()
             .baseUrl(BuildConfig.MARKET_BITCOIN_URL)
@@ -32,7 +40,7 @@ val coreApiModules = module {
 
     single(CENTRAL_BANK.toQualifier()) {
         Retrofit.Builder()
-            .baseUrl(BuildConfig.MARKET_BITCOIN_URL)
+            .baseUrl(BuildConfig.CENTRAL_BANK_URL)
             .addConverterFactory(get())
             .build()
     } bind Retrofit::class
@@ -41,8 +49,6 @@ val coreApiModules = module {
         GsonConverterFactory.create()
     } bind Converter.Factory::class
 
-    factory { get<Retrofit>(MARKET_BITCOIN.toQualifier()).create(BitcoinMarketApi::class.java) }
-    factory { get<Retrofit>(CENTRAL_BANK.toQualifier()).create(CentralBankApi::class.java) }
 
     //room
     single {
@@ -91,7 +97,34 @@ val coreApiModules = module {
     factory {
         CreateNewWallet(get())
     }
+    factory<QuotationsDataSource> {
+        RemoteQuotationDataSource(
+            bitcoinMarketApi = get(),
+            centralBankApi = get()
+        )
+    } bind RemoteQuotationDataSource::class
+
+
+    factory {
+        QuotationRepository(
+            quotationsDataSource = get()
+        )
+    }
+    factory {
+        GetQuotationBitcoin(
+            quotationRepository = get()
+        )
+    } bind GetQuotationBitcoin::class
+    factory {
+        GetQuotationDollar(
+            quotationRepository = get()
+        )
+    } bind GetQuotationDollar::class
+
+    factory {
+        UpdateWallet(get())
+    }
 }
 
 
-fun String.toQualifier() = named(this)
+    fun String.toQualifier() = named(this)

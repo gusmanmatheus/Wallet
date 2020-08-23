@@ -36,7 +36,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupObserver()
-        setupScree()
+        setupScreen()
         clickTrade()
         return binding.root
     }
@@ -51,7 +51,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun setupScree() {
+    private fun setupScreen() {
         viewModel.getQuotations()
         viewModel.getUserActive()
     }

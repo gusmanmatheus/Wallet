@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="transaction"
+            type="com.mathe.domain.Transaction" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/info_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="moeda comprada" />
+
+        <TextView
+            android:id="@+id/info_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_buy"
+            android:text="moeda vendida" />
+
+        <TextView
+            android:id="@+id/buy_type_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@{transaction.buyType}"
+            app:layout_constraintLeft_toRightOf="@id/info_buy"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="buy type" />
+
+        <TextView
+            android:id="@+id/buy_value_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+             app:layout_constraintLeft_toRightOf="@id/buy_type_coin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="buy value" />
+
+        <TextView
+            android:id="@+id/sell_type_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@{transaction.sellType}"
+            app:layout_constraintLeft_toRightOf="@id/info_sell"
+            app:layout_constraintStart_toEndOf="@+id/info_buy"
+            app:layout_constraintTop_toBottomOf="@id/buy_type_coin"
+            tools:text="sell type" />
+
+        <TextView
+            android:id="@+id/sell_value_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+             app:layout_constraintLeft_toRightOf="@id/sell_type_coin"
+            app:layout_constraintTop_toBottomOf="@id/buy_value_coin"
+            tools:text="sell value" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="36dp"
+             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00/00/00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

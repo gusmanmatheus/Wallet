@@ -1,21 +1,21 @@
 package com.mathe.coreandroid
 
 import androidx.room.Room
+import com.mathe.coreandroid.datasource.local.RoomTransactionDataSource
 import com.mathe.coreandroid.datasource.local.RoomUserDataSource
 import com.mathe.coreandroid.datasource.local.RoomWalletDataSource
 import com.mathe.coreandroid.datasource.remote.RemoteQuotationDataSource
 import com.mathe.coreandroid.db.WalletDataBase
 import com.mathe.coreandroid.remote.api.BitcoinMarketApi
 import com.mathe.coreandroid.remote.api.CentralBankApi
+import com.mathe.data.repository.local.TransactionRepository
 import com.mathe.data.repository.local.UserRepository
 import com.mathe.data.repository.local.WalletRepository
 import com.mathe.data.repository.remote.QuotationRepository
-import com.mathe.data.usercasehome.GetQuotationBitcoin
-import com.mathe.data.usercasehome.GetQuotationDollar
-import com.mathe.data.usercasehome.GetWallet
-import com.mathe.data.usercasehome.UpdateWallet
+import com.mathe.data.usercasehome.*
 import com.mathe.data.usercaselogin.*
 import com.mathe.domain.datasource.QuotationsDataSource
+import com.mathe.domain.datasource.TransactionDataSource
 import com.mathe.domain.datasource.UserDataSource
 import com.mathe.domain.datasource.WalletDataSource
 import org.koin.core.qualifier.named
@@ -60,6 +60,8 @@ val coreApiModules = module {
 
     factory { get<WalletDataBase>().walletDao() }
 
+    factory { get<WalletDataBase>().transactionDao() }
+
     factory<UserDataSource> {
         RoomUserDataSource(
             userDao = get()
@@ -69,6 +71,10 @@ val coreApiModules = module {
         RoomWalletDataSource(
             walletDao = get()
         )
+    }
+
+    factory<TransactionDataSource> {
+        RoomTransactionDataSource(transactionDao = get())
     }
 
 
@@ -86,8 +92,9 @@ val coreApiModules = module {
 
     factory { FindUserId(userRepository = get()) }
 
+    factory {SalveTransaction(transactionRepository = get())}
 
-
+    factory { GetAllTransactions(get()) }
 
     factory { WalletRepository(get()) }
 
@@ -124,7 +131,10 @@ val coreApiModules = module {
     factory {
         UpdateWallet(get())
     }
+    factory {
+        TransactionRepository(transactionDataSource = get())
+    }
 }
 
 
-    fun String.toQualifier() = named(this)
+fun String.toQualifier() = named(this)

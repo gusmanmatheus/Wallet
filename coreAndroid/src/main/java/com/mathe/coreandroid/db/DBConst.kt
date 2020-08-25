@@ -29,6 +29,7 @@ class DBConst {
         const val TABLE = "TRANSACTION"
 
         object COLUMNS {
+            const val ID = "ID"
             const val BUY_TYPE = "BUY_TYPE"
             const val BUY_VALUE = "BUY_VALUE"
             const val SELL_TYPE = "SELL_TYPE"

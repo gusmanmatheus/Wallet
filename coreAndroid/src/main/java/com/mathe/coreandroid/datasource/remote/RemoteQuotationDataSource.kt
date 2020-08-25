@@ -17,7 +17,7 @@ class RemoteQuotationDataSource(
     override suspend fun getDollar(): Resources<Double?> {
         return try {
             val centralBankApi =
-                centralBankApi.getDollarValue("'${Date().getDatePast(2).americaPattern()}'")
+                centralBankApi.getDollarValue("'${Date().getDatePast(5).americaPattern()}'")
             val value = centralBankApi.await()
             Resources.successResponse(value.quotation())
         } catch (e: Exception) {

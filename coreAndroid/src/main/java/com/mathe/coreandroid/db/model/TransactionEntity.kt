@@ -20,7 +20,8 @@ import java.util.*
 )
 class TransactionEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.ID)
+    val id: Long = 0,
     @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.BUY_TYPE)
     val buyType: String,
     @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.BUY_VALUE)
@@ -30,7 +31,7 @@ class TransactionEntity(
     @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.SELL_VALUE)
     val sellValue: Double,
     @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.DATE)
-    val date: Date,
+    val date: String,
     @ColumnInfo(name = DBConst.TRANSACTION.COLUMNS.USER_ID)
     val userId: Long
 )

@@ -11,3 +11,6 @@ fun Date.americaPattern(): String {
     return SimpleDateFormat("MM/dd/yyyy", Locale("GMT-3")).apply {
     }.format(this)
 }
+fun Date.brazilPattern(): String {
+    return SimpleDateFormat("dd/MM/yyyy",Locale("GMT-3")).format(this)
+}

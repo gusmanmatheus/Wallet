@@ -39,5 +39,18 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.home.presentation.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.example.home.presentation.ReceiptFragment"
+        android:label="ReceiptFragment" />
 </navigation>

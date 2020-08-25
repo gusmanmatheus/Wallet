@@ -17,4 +17,6 @@
     <string name="error_request_cambio"> "nao foi possivel pegar o cambio do bitcoin ou da moeda britta, foram " +
                         "desabilitadas as funcoes de cambio tente novamente"</string>
     <string name="no_money_balance">Sem saldo pra essa troca</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

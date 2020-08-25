@@ -45,6 +45,10 @@ class LoginViewModel(val loginInteractor: LoginInteractor) : ViewModel() {
             }
         }
     }
+
+    fun removeActionGoHome() {
+        _goToHomeScreen.value = false
+    }
 }
 
 

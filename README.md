@@ -15,13 +15,13 @@ consiguirá fazer logout no app, voltando para Login onde pode fazer login ou ca
 - Extrato das transações com detalhamento de dia, valor de compra e valor de venda.
 
 # Detalhes do desenvolvimento
-Arquitetura MVVM com Clean Architecture
-layout simples
-Android Studio 3.5.1
-Minimum SDK version 16
-Compile SDK version 29
-Kotlin version 1.3.72
-Modularização
+- Arquitetura MVVM com Clean Architecture
+- layout simples
+- Android Studio 3.5.1
+- Minimum SDK version 16
+- Compile SDK version 29
+- Kotlin version 1.3.72
+- Modularização
 
 
 # Bibliotecas

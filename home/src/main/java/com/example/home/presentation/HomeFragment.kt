@@ -12,18 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.home.R
 import com.example.home.databinding.FragmentHomeBinding
+import com.example.home.navigate.HomeNavigate
 import com.mathe.core.interactors.cleanMoneyText
 import com.mathe.coreandroid.maskValue
+import com.mathe.coreandroid.navigator
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    var control = true
+    val navigate: HomeNavigate by navigator()
+    private var control = true
     val viewModel: HomeViewModel by viewModel()
-    lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setupObserver()
     }
 
     override fun onCreateView(
@@ -38,19 +41,21 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        setupObserver()
-        setupScreen()
+         setupScreen()
         clickTrade()
+        seeTransactions()
+        userObserver()
+        logout()
+        walletObserver()
         return binding.root
     }
 
     private fun setupObserver() {
-        userObserver()
-        walletObserver()
-        exchangeObservable()
         errorBitcoin()
         errorBritta()
         insufficientFundsObserver()
+        exchangeObservable()
+
 
     }
 
@@ -77,6 +82,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
     }
 
+
     private fun setupSpinner() {
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -91,24 +97,37 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun exchangeObservable() {
 
         viewModel.exchangeSpent.observe(this, Observer {
-            if (control) {
-              viewModel.exchangeSpent.value =  binding.hmEdExchange.maskValue()
+             if (control) {
                 control = false
-                viewModel.convertQuotation()
-                binding.hmEdExchange.setSelection(binding.hmEdExchange.text.length )
+                 viewModel.exchangeSpent.value = binding.hmEdExchange.maskValue()
+                 viewModel.convertQuotation()
 
-            } else {
-                control = true
-            }
+             } else {
+                 control = true
+             }
+            binding.hmEdExchange.setSelection(binding.hmEdExchange.text.length)
         })
     }
+
     private fun clickTrade() {
         binding.hmBtTrade.setOnClickListener {
-            val verifyVoid = (viewModel.exchangeSpent.value?.cleanMoneyText() ?: 0.0)
+            val verifyVoid = viewModel.exchangeSpent.value.cleanMoneyText()
             if (verifyVoid > 0.0)
-                viewModel.updateWallet()
+                    viewModel.updateWallet()
             else
                 popUpErro("Digite um valor")
+        }
+    }
+
+    private fun seeTransactions() {
+        binding.seeTransaction.setOnClickListener {
+             navigate.goToReceiptScreen()
+        }
+    }
+    private fun logout(){
+        binding.logout.setOnClickListener {
+            viewModel.logout()
+            navigate.logout()
         }
     }
 

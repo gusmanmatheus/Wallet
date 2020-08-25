@@ -6,10 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.home.HomeInteractor
-import com.mathe.core.interactors.cleanMoneyText
-import com.mathe.core.interactors.formatMoneyText
-import com.mathe.core.interactors.makeConvert
+import com.mathe.core.interactors.*
 import com.mathe.domain.Resources
+import com.mathe.domain.Transaction
 import com.mathe.domain.User
 import com.mathe.domain.Wallet
 import kotlinx.coroutines.launch
@@ -22,9 +21,7 @@ class HomeViewModel(
     private val homeInteractor: HomeInteractor
 ) : ViewModel() {
     private val _bitcoin = MutableLiveData<Double>()
-    val bitcoin: LiveData<Double> = _bitcoin
     private val _britta = MutableLiveData<Double>()
-    val britta: LiveData<Double> = _britta
 
     private val _errorBitcoin = MutableLiveData<String>()
     val errorBitcoin: LiveData<String> = _errorBitcoin
@@ -132,7 +129,7 @@ class HomeViewModel(
     private fun brittaToReal() {
         _britta.value?.let {
             _convertedExchange.value =
-                exchangeSpent.value?.cleanMoneyText().toString().makeConvert(it, 1.0)
+                exchangeSpent.value.cleanMoneyText().toString().makeConvert(it, 1.0)
             sellCoin.value = Coins.BRITTA
             buyCoin.value = Coins.REAL
         }
@@ -142,7 +139,7 @@ class HomeViewModel(
         _britta.value?.let { britta ->
             _bitcoin.value?.let { bitcoin ->
                 _convertedExchange.value =
-                    exchangeSpent.value?.cleanMoneyText()?.toString()?.makeConvert(britta, bitcoin)
+                    exchangeSpent.value.cleanMoneyText().toString().makeConvert(britta, bitcoin)
                 sellCoin.value = Coins.BRITTA
                 buyCoin.value = Coins.BITCOIN
             }
@@ -152,7 +149,7 @@ class HomeViewModel(
     private fun realToBritta() {
         _britta.value?.let {
             _convertedExchange.value =
-                exchangeSpent.value?.cleanMoneyText()?.toString()?.makeConvert(1.0, it)
+                exchangeSpent.value.cleanMoneyText().toString().makeConvert(1.0, it)
             sellCoin.value = Coins.REAL
             buyCoin.value = Coins.BRITTA
         }
@@ -161,7 +158,7 @@ class HomeViewModel(
     private fun realToBitcoin() {
         _bitcoin.value?.let {
             _convertedExchange.value =
-                exchangeSpent.value?.cleanMoneyText()?.toString()?.makeConvert(1.0, it)
+                exchangeSpent.value.cleanMoneyText().toString().makeConvert(1.0, it)
             sellCoin.value = Coins.REAL
             buyCoin.value = Coins.BITCOIN
         }
@@ -171,7 +168,7 @@ class HomeViewModel(
     private fun bitcoinToReal() {
         _bitcoin.value?.let {
             _convertedExchange.value =
-                exchangeSpent.value?.cleanMoneyText()?.toString()?.makeConvert(it, 1.0)
+                exchangeSpent.value.cleanMoneyText().toString().makeConvert(it, 1.0)
             sellCoin.value = Coins.BITCOIN
             buyCoin.value = Coins.REAL
         }
@@ -181,7 +178,7 @@ class HomeViewModel(
         _britta.value?.let { britta ->
             _bitcoin.value?.let { bitcoin ->
                 _convertedExchange.value =
-                    exchangeSpent.value?.cleanMoneyText()?.toString()?.makeConvert(bitcoin, britta)
+                    exchangeSpent.value.cleanMoneyText().toString().makeConvert(bitcoin, britta)
                 sellCoin.value = Coins.BITCOIN
                 buyCoin.value = Coins.BRITTA
             }
@@ -192,7 +189,7 @@ class HomeViewModel(
         when (sellCoin.value) {
             Coins.REAL -> {
                 val real = _wallet.value?.real ?: 0.0
-                val sellValue = exchangeSpent.value?.cleanMoneyText() ?: 0.0
+                val sellValue = exchangeSpent.value.cleanMoneyText() ?: 0.0
                 val newValue = real - sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.real = newValue
@@ -201,7 +198,7 @@ class HomeViewModel(
             }
             Coins.BRITTA -> {
                 val britta = _wallet.value?.britta ?: 0.0
-                val sellValue = exchangeSpent.value?.cleanMoneyText() ?: 0.0
+                val sellValue = exchangeSpent.value.cleanMoneyText() ?: 0.0
                 val newValue = britta - sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.britta = newValue
@@ -210,7 +207,7 @@ class HomeViewModel(
             }
             Coins.BITCOIN -> {
                 val bitcoin = _wallet.value?.bitcoin ?: 0.0
-                val sellValue = exchangeSpent.value?.cleanMoneyText() ?: 0.0
+                val sellValue = exchangeSpent.value.cleanMoneyText() ?: 0.0
                 val newValue = bitcoin - sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.bitcoin = newValue
@@ -225,7 +222,7 @@ class HomeViewModel(
         when (buyCoin.value) {
             Coins.REAL -> {
                 val real = _wallet.value?.real ?: 0.0
-                val sellValue = convertedExchange.value?.cleanMoneyText() ?: 0.0
+                val sellValue = convertedExchange.value.cleanMoneyText() ?: 0.0
                 val newValue = real + sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.real = newValue
@@ -234,7 +231,7 @@ class HomeViewModel(
             }
             Coins.BRITTA -> {
                 val britta = _wallet.value?.britta ?: 0.0
-                val sellValue = convertedExchange.value?.cleanMoneyText() ?: 0.0
+                val sellValue = convertedExchange.value.cleanMoneyText() ?: 0.0
                 val newValue = britta + sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.britta = newValue
@@ -243,7 +240,7 @@ class HomeViewModel(
             }
             Coins.BITCOIN -> {
                 val bitcoin = _wallet.value?.bitcoin ?: 0.0
-                val sellValue = convertedExchange.value?.cleanMoneyText() ?: 0.0
+                val sellValue = convertedExchange.value.cleanMoneyText() ?: 0.0
                 val newValue = bitcoin + sellValue
                 return if (newValue >= 0) {
                     _wallet.value?.bitcoin = newValue
@@ -262,6 +259,20 @@ class HomeViewModel(
                     val a = homeInteractor.updateWallet(it)
                     if (a > 0) {
                         setValuesCoinsTexts()
+                        val transaction = Transaction(
+                            userId = _user.value?.id?:0,
+                            buyType = buyCoin.value?.name.orEmpty(),
+                            buyValue =  convertedExchange.value.cleanMoneyText(),
+                            sellType = sellCoin.value?.name.orEmpty(),
+                            sellValue =exchangeSpent.value.cleanMoneyText(),
+                            date = Date().getDatePast().brazilPattern()
+                        )
+                        Log.i("xrl8",transaction.toString())
+                        try {
+                            homeInteractor.salveTransaction(transaction)
+                        } catch (error: Exception) {
+                            Log.i("xrl8", error.message ?: "a")
+                        }
                     }
                 } else {
                     _insufficientFunds.value = true
@@ -270,6 +281,11 @@ class HomeViewModel(
         }
     }
 
+    fun logout(){
+        viewModelScope.launch {
+            homeInteractor.logout()
+        }
+    }
     enum class Coins(val code: Int) {
         REAL(0),
         BRITTA(1),

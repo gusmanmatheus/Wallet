@@ -79,6 +79,8 @@ class LoginFragment : Fragment() {
         viewModel.goToHomeScreen.observe(viewLifecycleOwner, Observer {
             if (it) {
                 goToHomeScreen()
+            } else {
+                viewModel.removeActionGoHome()
             }
         })
     }

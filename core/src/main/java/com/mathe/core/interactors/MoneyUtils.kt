@@ -20,8 +20,8 @@ fun BigDecimal.formatMoneyText(): String {
 }
 
 
-fun String.cleanMoneyText(): Double {
-    return if (this.isNotEmpty()) {
+fun String?.cleanMoneyText(): Double {
+    return if (this != null && !this.isBlank() && this.isNotEmpty()) {
         this.replace("[.]".toRegex(), "").replace("[,]".toRegex(), ".").toDouble()
     } else {
         0.0

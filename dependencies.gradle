@@ -1,0 +1,126 @@
+ext {
+
+    androidCompileSdkVersion = 29
+    androidBuildToolsVersion = "29.0.2"
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 29
+
+    versionCode = 1
+    versionName = "1.0"
+
+    koinVersion = "2.0.1"
+    androidAppCompatVersion = "1.1.0"
+    androidCoreVersion = "1.1.0"
+    androidConstraintLayoutVersion = "1.1.3"
+    androidMaterialVersion = "1.1.0"
+    androidCoreVersion = "1.1.0"
+    roomVersion = "2.2.4"
+    coroutineVersion = "1.3.5"
+
+    retrofitVersion = '2.6.0'
+
+    // test version
+    junitVersion = "5.3.2"
+    androidCoreTest = "1.2.0"
+
+    navigationVersion = "2.1.0"
+
+
+    kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    koin = "org.koin:koin-android:$koinVersion"
+    koinViewModel = "org.koin:koin-android-viewmodel:$koinVersion"
+
+    //  coroutine
+    coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+
+    // room
+    roomRuntime = "androidx.room:room-runtime:$roomVersion"
+    roomCompiler = "androidx.room:room-compiler:$roomVersion"
+    roomKtx = "androidx.room:room-ktx:$roomVersion"
+    viewModelScope = "2.1.0"
+    lifecycle = "1.1.1"
+    //Android dependency
+    androidConstraintLayout = "androidx.constraintlayout:constraintlayout:$androidConstraintLayoutVersion"
+    androidAppCompat = "androidx.appcompat:appcompat:$androidAppCompatVersion"
+    androidMaterial = "com.google.android.material:material:$androidMaterialVersion"
+    androidCore = "androidx.core:core-ktx:$androidCoreVersion"
+    androidJunitVersion = "1.1.1"
+    lifecycleAndroid = "android.arch.lifecycle:extensions:$lifecycle"
+    espressoVersion = "3.2.0"
+    //testDependency
+    junit = "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    androidCoreTest = "androidx.test:core:$androidCoreTest"
+    androidJunit = "androidx.test.ext:junit:$androidJunitVersion"
+    espresso = "androidx.test.espresso:espresso-core:$espressoVersion"
+    //retrofit
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    gson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    //navigate
+    navigationRuntime = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
+    navigationUi = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    navigationFragment = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+
+    viewModelScope = "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelScope"
+    roomDependencies = [
+            [configuration: "kapt", dependency: roomCompiler],
+            [configuration: "implementation", dependency: roomRuntime],
+            [configuration: "implementation", dependency: roomKtx]
+    ]
+
+    koinDependencies = [
+            [configuration: "implementation", dependency: koin],
+            [configuration: "implementation", dependency: koinViewModel]
+    ]
+    androidDependencies = [
+            [configuration: "implementation", dependency: androidCore],
+            [configuration: "implementation", dependency: androidAppCompat],
+            [configuration: "implementation", dependency: androidConstraintLayout],
+            [configuration: "implementation", dependency: androidMaterial],
+            [configuration: "implementation", dependency: lifecycleAndroid]]
+
+
+    juntTestDependencies = [
+            [configuration: "testImplementation", dependency: junit],
+    ]
+    commonsDependencies = [
+            [configuration: "implementation", dependency: kotlin]
+    ]
+
+    // coroutine
+    coroutineDependencies = [
+            [configuration: "implementation", dependency: coroutine]
+    ]
+    retrofitDependencies = [
+            [configuration: "implementation", dependency: retrofit],
+             [configuration: "implementation", dependency: gson]
+
+    ]
+    androidTestDependencies = [
+            [configuration: "androidTestImplementation", dependency: androidCoreTest],
+            [configuration: "androidTestImplementation", dependency: androidJunitVersion],
+            [configuration: "androidTestImplementation", dependency: espresso]]
+
+
+    navigationDependencies = [
+            [configuration: "implementation", dependency: navigationRuntime],
+            [configuration: "implementation", dependency: navigationFragment],
+            [configuration: "implementation", dependency: navigationUi]
+    ]
+
+    appDependencies =
+            juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies  + navigationDependencies +retrofitDependencies
+
+
+    loginDependencies =
+            juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies +  navigationDependencies+retrofitDependencies
+
+    coreAndroid = juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies +  navigationDependencies + retrofitDependencies
+
+    navigateDependencies = juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies  + navigationDependencies
+
+    homeDependencies =
+            juntTestDependencies + commonsDependencies + koinDependencies + androidDependencies + roomDependencies  + navigationDependencies + retrofitDependencies
+
+
+}

@@ -1,2 +1,9 @@
+include ':home'
+include ':navigation'
+include ':data'
+include ':domain'
+include ':coreAndroid'
+include ':core'
+include ':login'
 include ':app'
 rootProject.name = "Wallet"

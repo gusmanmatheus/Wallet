@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        buildConfigField ("String", "CENTRAL_BANK_URL", "\"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/\"")
+        buildConfigField ("String", "MARKET_BITCOIN_URL", "\"https://www.mercadobitcoin.net/api/BTC/\"")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    coreAndroid.each { add(it.configuration, it.dependency, it.options) }
+    implementation project(':core')
+    implementation project(':data')
+    implementation project(':domain')
+
+}
